@@ -30,6 +30,7 @@ type Contact struct {
    Username string
    GivenName string
    FamilyName string
+   FullName string
    Phone []struct{
       TypeID int
       CountryCode int
