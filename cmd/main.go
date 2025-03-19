@@ -8,6 +8,8 @@ import (
 )
 
 func main() {
+	println("hello")
+
 	api := fiber.New()
 
 	svc := service.New()
