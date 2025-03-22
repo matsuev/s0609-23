@@ -12,8 +12,5 @@ tasks:
 
   restart:
     cmds:
-      - task: up
       - task: down
-
-  migrate:
-    cmd: migrate -source=file://./migrations -database=postgres://$DB_USER:$DB_PASS@$DB_ADDR/$DB_NAME?sslmode=disable up
+      - task: up
