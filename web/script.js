@@ -1,5 +1,5 @@
 // Use WebSocket transport endpoint.
-const client = new Centrifuge('wss://web.orb.local/centrifugo/connection/websocket');
+const client = new Centrifuge('ws://loalhost:8080/centrifugo/connection/websocket');
 
 // Allocate Subscription to a channel.
 const newsSub = client.newSubscription('news');

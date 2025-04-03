@@ -4,6 +4,8 @@ services:
     restart: unless-stopped
     labels:
       - dev.orbstack.domains=web.orb.local
+    ports:
+      - 8080:80
     volumes:
       - ./web:/var/www/web
       - ./config/nginx:/etc/nginx/templates
