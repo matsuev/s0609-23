@@ -20,6 +20,18 @@
          "presence": true,
          "history_size": 10,
          "history_ttl": "30s"
-      }
+      },
+      "namespaces": [
+         {
+            "name": "news",
+            "allow_subscribe_for_client": true,
+            "allow_history_for_client": true,
+            "allow_subscribe_for_anonymous": true,
+            "allow_history_for_anonymous": true,
+            "force_recovery": true,
+            "history_size": 100,
+            "history_ttl": "300s"
+         }
+      ]
    }
 }
