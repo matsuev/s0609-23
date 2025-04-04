@@ -1,21 +1,49 @@
 // Use WebSocket transport endpoint.
-const client = new Centrifuge('ws://loalhost:8080/centrifugo/connection/websocket');
+const client = new Centrifuge('ws://localhost:8080/centrifugo/connection/websocket');
 
-// Allocate Subscription to a channel.
-const newsSub = client.newSubscription('news');
+client.connect()
 
-const list = document.getElementById("list")
+const userInput = document.getElementById("username")
+const chatInput = document.getElementById("chat")
+const msgInput = document.getElementById("message")
 
-// React on `news` channel real-time publications.
-newsSub.on('publication', function (ctx)
+const btnSubscribe = document.getElementById("subscribe")
+const btnPublish = document.getElementById("publish")
+
+const listView = document.getElementById("list")
+
+btnSubscribe.addEventListener("click", (ev) =>
 {
-   console.log(ctx.data);
+   if (userInput.value == "" || chatInput.value == "")
+   {
+      alert("Username and Chat must be not empty")
 
-   list.innerHTML += "<p>" + ctx.data.message + "</p>"
-});
+      return
+   }
 
-// Trigger subscribe process.
-newsSub.subscribe();
+   const chatSub = client.newSubscription(chatInput.value)
 
-// Trigger actual connection establishement.
-client.connect();
+   chatSub.on("publication", (ev) =>
+   {
+      let line = `<p><b>${ev.data.from}:</b> ${ev.data.message}</p>`
+
+      listView.innerHTML += line
+   })
+
+   chatSub.subscribe()
+})
+
+btnPublish.addEventListener("click", (ev) =>
+{
+   if (msgInput.value == "")
+   {
+      return
+   }
+
+   client.publish(chatInput.value, {
+      from: userInput.value,
+      message: msgInput.value
+   })
+
+   msgInput.value = ""
+})
