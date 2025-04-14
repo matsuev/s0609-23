@@ -2,16 +2,26 @@ package main
 
 import (
 	"log"
+	"net"
+	"s0609-23/internal/proxyproto"
 
-	"github.com/gofiber/fiber/v2"
+	"google.golang.org/grpc"
 )
 
 func main() {
-	app := fiber.New()
+	listener, err := net.Listen("tcp", "127.0.0.1:10000")
+	if err != nil {
+		log.Fatalln(err)
+	}
+	defer listener.Close()
 
-	app.Post("/connect", connectHandler)
+	srv := grpc.NewServer()
 
-	if err := app.Listen(":6080"); err != nil {
+	svc := NewAuthService()
+
+	proxyproto.RegisterCentrifugoProxyServer(srv, svc)
+
+	if err := srv.Serve(listener); err != nil {
 		log.Fatalln(err)
 	}
 }

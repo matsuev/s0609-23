@@ -1,0 +1,12 @@
+version: "3"
+
+tasks:
+  proxyproto:
+    cmds:
+      - protoc -I ./contracts proxy.proto --go_out=./internal/proxyproto --go-grpc_out=./internal/proxyproto
+      - go mod tidy
+
+  sqlc:
+    cmds:
+      - sqlc generate
+      - go mod tidy
