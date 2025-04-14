@@ -1,0 +1,12 @@
+version: "3"
+
+tasks:
+  authapi:
+    cmds:
+      - protoc -I ./contracts authapi.proto --go_out=./internal/authapi --go-grpc_out=./internal/authapi
+      - go mod tidy
+
+  sqlc:
+    cmds:
+      - sqlc generate
+      - go mod tidy

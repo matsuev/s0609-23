@@ -1,0 +1,11 @@
+version: "2"
+
+sql:
+  - engine: "postgresql"
+    queries: "./queries"
+    schema: "./migrations/demodb"
+    gen:
+      go:
+        package: "demodb"
+        out: "./internal/demodb"
+        sql_package: "pgx/v5"
