@@ -1,0 +1,24 @@
+version: "3"
+
+dotenv:
+  - .env
+
+tasks:
+  up:
+    cmd: docker compose up -d --build
+
+  down:
+    cmd: docker compose down
+
+  restart:
+    cmds:
+      - task: down
+      - task: up
+
+  migrate:
+    cmd: migrate -path ./migrations -database postgres://$DB_USER:$DB_PASS@127.0.0.1:5432/$DB_NAME?sslmode=disable {{.CLI_ARGS}}
+
+  sqlc:
+    cmds:
+      - sqlc generate
+      - go mod tidy
