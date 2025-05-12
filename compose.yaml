@@ -1,0 +1,8 @@
+services:
+  api-service:
+    build:
+      context: .
+      dockerfile: api-service.Dockerfile
+    restart: unless-stopped
+    ports:
+      - 127.0.0.1:8081:8081
