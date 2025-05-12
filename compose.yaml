@@ -1,3 +1,6 @@
+include:
+  - ./compose.auth.yaml
+
 services:
   database:
     image: postgres:17.4-alpine3.21
